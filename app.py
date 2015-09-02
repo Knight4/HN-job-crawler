@@ -22,6 +22,7 @@ def fire():
 	args = vars(ap.parse_args())
 
 	try:
+		data = []
 		page = requests.get(args["url"])
 		keywords = args["keywords"].split(",")
 
@@ -32,8 +33,9 @@ def fire():
 			innerContent = stringify_children(comment)
 		
 			if any(keyword in innerContent for keyword in keywords):
-				print unicode(innerContent).encode('utf8') + "\n\n\n"
+				data.append(unicode(innerContent).encode('utf8'))
 
+		print json.dumps(data)
 
 
 	except Exception as e:
